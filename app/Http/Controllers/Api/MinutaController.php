@@ -248,7 +248,10 @@ class MinutaController extends Controller
   }
 
   public function exportExcel($id_minuta) {
-    return Excel::download(new MinutaExport($id_minuta), 'minuta.xls');
+
+    $excel = Minuta::where('id', $id_minuta)->first();
+
+    return Excel::download(new MinutaExport($id_minuta), $excel->nombre .'.xls');
   }
     
 }
