@@ -14,8 +14,8 @@ class AddClientMinutaToMinutasTable extends Migration
     public function up()
     {
         Schema::table('minutas', function (Blueprint $table) {
-            $table->integer('id_minuta_clientes')->unsigned()->nullable();
-            $table->foreign('id_minuta_clientes')->references('id')->on('client_minuta')->onDelete('cascade');
+            $table->integer('id_minuta_cliente')->unsigned()->nullable();
+            $table->foreign('id_minuta_cliente')->references('id')->on('client_minuta')->onDelete('cascade');
         });
     }
 

@@ -11,6 +11,8 @@ use App\Models\FoodTypeConfiguration;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Exports\MinutaExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MinutaController extends Controller
 {
@@ -244,4 +246,9 @@ class MinutaController extends Controller
       return \Response::json($data, 404);
     }
   }
+
+  public function exportExcel($id_minuta) {
+    return Excel::download(new MinutaExport($id_minuta), 'minuta.xls');
+  }
+    
 }

@@ -15,8 +15,8 @@ class CreateFoodTypeConfigurationTable extends Migration
     {
         Schema::create('food_type_configuration', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_configuracion_minutas')->unsigned();
-            $table->foreign('id_configuracion_minutas')->references('id')->on('minuta_configuration');
+            $table->integer('id_configuracion_minuta')->unsigned();
+            $table->foreign('id_configuracion_minuta')->references('id')->on('minuta_configuration');
             
             $table->integer('cant_maxima');
             $table->double('porcentaje');
