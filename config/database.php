@@ -2,6 +2,29 @@
 
 use Illuminate\Support\Str;
 
+    if (getenv('REDIS_URL'))
+    {
+        $url = parse_url(getenv('REDIS_URL'));
+
+        putenv('REDIS_HOST='.$url['host']);
+        putenv('REDIS_PORT='.$url['port']);
+        putenv('REDIS_PASSWORD='.$url['pass']);
+    }
+
+    // Some libs are expecting this env vars to be setted
+    // to get a working db connection.
+    if(getenv('DATABASE_URL'))
+    {
+        $dburl = parse_url(getenv("DATABASE_URL"));
+        // remove the slash from url path
+        $database_name =  str_replace('/', '', $dburl['path']);
+        putenv('DB_HOST='.$dburl['host']);
+        putenv('DB_DATABASE='.$database_name);
+        putenv('DB_USERNAME='.$dburl['user']);
+        putenv('DB_PASSWORD='.$dburl['pass']);
+    }
+
+
 return [
 
     /*
