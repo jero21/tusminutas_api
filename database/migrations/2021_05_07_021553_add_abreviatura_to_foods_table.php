@@ -14,7 +14,7 @@ class AddAbreviaturaToFoodsTable extends Migration
     public function up()
     {
         Schema::table('foods', function (Blueprint $table) {
-             $table->string('abreviatura');
+             $table->string('abreviatura')->nullable();
         });
     }
 
