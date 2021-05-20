@@ -39,4 +39,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function minutas() {
+        return $this->hasMany(Minuta::class, 'id_user');
+    }
 }
