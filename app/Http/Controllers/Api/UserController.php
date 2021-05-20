@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -13,7 +14,7 @@ class UserController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function index(){
-    return User::all();      
+    return User::with('minutas')->get();      
   }
 
   /**
