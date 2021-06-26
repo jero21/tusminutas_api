@@ -72,20 +72,20 @@ class MinutaPorComidaSheet implements FromCollection, WithTitle, WithHeadings
     */
     public function collection()
     {
+        $alimentos = [];
         foreach($this->comida['alimentos'] as $comida_alimento) {
-            $alimentos = [];
+            $propiedades = [];
             foreach($this->custom_head as $custom) {
-                logger($custom);
-                $property = [
-                    $custom => $comida_alimento[$custom]
-                ];
-                $alimentos[] = $property;
+                $propiedades[$custom] = $comida_alimento[$custom];
             }
 
-            $comida_alimento = $alimentos;
+            $alimentos[] = $propiedades;
 
         }
-        return collect($this->comida['alimentos']);
+        logger($alimentos);
+        logger("----------------");
+        logger($this->comida['alimentos']);
+        return collect($alimentos);
     }
 
     public function title(): string {
