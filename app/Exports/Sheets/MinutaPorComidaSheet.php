@@ -78,13 +78,9 @@ class MinutaPorComidaSheet implements FromCollection, WithTitle, WithHeadings
             foreach($this->custom_head as $custom) {
                 $propiedades[$custom] = $comida_alimento[$custom];
             }
-
             $alimentos[] = $propiedades;
 
         }
-        logger($alimentos);
-        logger("----------------");
-        logger($this->comida['alimentos']);
         return collect($alimentos);
     }
 
