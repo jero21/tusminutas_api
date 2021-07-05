@@ -56,6 +56,3 @@ Route::get('show_minuta_cliente/{uuid}', [MinutaController::class, 'showCliente'
 Route::get('propiedad', [PropertyController::class, 'indexCliente']);
 
 Route::get('usuarios', [UserController::class, 'index']);
-
-
-Route::post('actualizar_perfil/{id}', [UserController::class, 'actualizarPerfil']);

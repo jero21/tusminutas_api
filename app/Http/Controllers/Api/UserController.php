@@ -17,16 +17,4 @@ class UserController extends Controller
   public function index(){
     return User::with('minutas')->get();      
   }
-
-  public function actualizarPerfil($id)
-  {
-    $perfil = AccountType::find($id);
-    $perfil->nombre = "Básico";
-    $perfil->save();
-
-    $perf = new AccountType();
-    $perf->nombre = "Profesional";
-    $perf->save();
-
-  }
 }
