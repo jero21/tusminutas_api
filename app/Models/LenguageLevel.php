@@ -16,7 +16,7 @@ class LenguageLevel extends Model
      */
     protected $table = 'lenguage_level';
 
-    protected $fillable = ['nombre', 'id_lenguage', 'id_profile'];
+    protected $fillable = ['nivel_manejo', 'id_lenguage', 'id_profile'];
 
     protected $hidden = ['created_at', 'updated_at'];
 
