@@ -33,6 +33,10 @@ return [
         'client_id'     => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect'      => env('GOOGLE_REDIRECT')
+    ],
+    'mercadopago' => [
+        'key'     => env('MP_PUBLIC_KEY'),
+        'token' => env('MP_ACCESS_TOKEN')
     ]
 
 ];

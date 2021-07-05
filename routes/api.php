@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\MinutaController;
 use App\Http\Controllers\Api\AccountTypeController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PropertyController;
+use App\Http\Controllers\Api\TypeRrssController;
+use App\Http\Controllers\Api\LenguageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,9 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 	Route::apiResource('tipoCuentas', AccountTypeController::class);
 	Route::apiResource('nutricionistas', UserController::class);
 	Route::apiResource('propiedad', PropertyController::class);
+	Route::apiResource('profile', ProfileController::class);
+	Route::apiResource('type_rrss', TypeRrssController::class);
+	Route::apiResource('lenguage', LenguageController::class);
 
 	Route::post('minuta_cliente', [MinutaController::class, 'minutaCliente']);
 	Route::post('update_config', [MinutaController::class, 'updateConfig']);
@@ -51,3 +56,6 @@ Route::get('show_minuta_cliente/{uuid}', [MinutaController::class, 'showCliente'
 Route::get('propiedad', [PropertyController::class, 'indexCliente']);
 
 Route::get('usuarios', [UserController::class, 'index']);
+
+
+Route::post('actualizar_perfil/{id}', [UserController::class, 'actualizarPerfil']);
