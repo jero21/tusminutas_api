@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PropertyController;
 use App\Http\Controllers\Api\TypeRrssController;
 use App\Http\Controllers\Api\LenguageController;
+use App\Http\Controllers\Api\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 	Route::apiResource('nutricionistas', UserController::class);
 	Route::apiResource('propiedad', PropertyController::class);
 	Route::apiResource('profile', ProfileController::class);
+	
 	Route::apiResource('type_rrss', TypeRrssController::class);
 	Route::apiResource('lenguage', LenguageController::class);
 

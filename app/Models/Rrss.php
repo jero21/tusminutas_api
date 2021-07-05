@@ -24,4 +24,7 @@ class Rrss extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
+    public function typesRrss() {
+      return $this->belongsTo(TypeRrss::class, 'id_type_rrss');
+    }
 }

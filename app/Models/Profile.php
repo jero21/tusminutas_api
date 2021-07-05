@@ -28,4 +28,15 @@ class Profile extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
+    public function nivelLenguaje () {
+      return $this->hasMany(LenguageLevel::class, 'id_profile');
+    }
+
+    public function otherStudies () {
+      return $this->hasMany(OtherStudies::class, 'id_profile');
+    }
+
+    public function rrss () {
+      return $this->hasMany(Rrss::class, 'id_profile');
+    }
 }

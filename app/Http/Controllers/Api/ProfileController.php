@@ -40,7 +40,14 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        //
+        return Profile::with(
+            [
+                'nivelLenguaje.lenguaje', 
+                'otherStudies', 
+                'rrss.typesRrss'
+            ]
+        )->where('id', $id)->first();
+            
     }
 
     /**

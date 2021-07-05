@@ -20,4 +20,8 @@ class LenguageLevel extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
+    public function lenguaje() {
+      return $this->belongsTo(Lenguage::class, 'id_lenguage');
+    }
+
 }
