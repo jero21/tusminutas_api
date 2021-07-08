@@ -61,7 +61,6 @@ class MinutaController extends Controller
         $minuta->descripcion    = $request->descripcion;
         $minuta->comidas        = $request->comidas;
         $minuta->id_user        = $user->id;
-        //$minuta->id_tipo_minuta = $request->id_tipo_minuta;
         $minuta->save();
 
         $configuracion = $request->configuracion;
@@ -243,6 +242,36 @@ class MinutaController extends Controller
         return ['update' => true];
       }
 
+    } catch (Exception $e) {
+      \Log::info('Error creating user: ' . $e);
+      return \Response::json(['created' => false], 500);
+    }
+  }
+
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  \App\Models\Minuta  $minuta
+   * @return \Illuminate\Http\Response
+   */
+  public function updateConfig(Request $request, $id) {
+
+    if (!is_array($request->all())) {
+      return ['error' => 'request must be an array'];
+    }
+
+    try {
+      $configuracion = $request->configuracion;
+
+      foreach ($configuracion as $propiedad) {
+        $minuta_config = MinutaConfiguration::find($id);
+        $minuta_config->id_minuta       = $minuta_config->id;
+        $minuta_config->id_propiedad    = $propiedad['id_propiedad'];
+        $minuta_config->cant_maxima     = $propiedad['cant_maxima'];
+        $minuta_config->save();
+      }
+      return ['update' => true];
     } catch (Exception $e) {
       \Log::info('Error creating user: ' . $e);
       return \Response::json(['created' => false], 500);

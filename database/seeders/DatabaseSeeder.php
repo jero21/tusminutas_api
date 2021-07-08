@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
 		$this->call(FoodTypeSeeder::class);
 		$this->call(MinutaTypeSeeder::class);
 		$this->call(PropertySeeder::class);
+        $this->call(LenguageSeeder::class);
+        $this->call(TypeRrssSeeder::class);
 		$this->call(UserSeeder::class);
     }
 }

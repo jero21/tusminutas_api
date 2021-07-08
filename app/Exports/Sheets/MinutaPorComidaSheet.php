@@ -12,29 +12,14 @@ class MinutaPorComidaSheet implements FromCollection, WithTitle, WithHeadings
 
 	private $comida;
 	private $id_minuta;
+    private $custom_head;
 
 	public function __construct($comida, $id_minuta) {
 		$this->comida = $comida;
 		$this->id_minuta = $id_minuta;
-	}
-
-
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
-    {
-        return collect($this->comida['alimentos']);
-    }
-
-    public function title(): string {
-        return $this->comida['nombre'];
-    }
-
-    public function headings(): array {
-        return [
-        	'#',
-           	'nombre',
+        $this->custom_head = [
+            'id',
+            'nombre',
             'grupo',
             'subgrupo',
             'porcentaje_perdida',
@@ -42,7 +27,7 @@ class MinutaPorComidaSheet implements FromCollection, WithTitle, WithHeadings
             'gramos',
             'porcion',
             'humedad',
-            'energía',
+            'energia',
             'proteinas',
             'carbohidratos',
             'grasas_totales',
@@ -67,17 +52,43 @@ class MinutaPorComidaSheet implements FromCollection, WithTitle, WithHeadings
             'vit_e',
             'vit_d',
             'vit_k',
-            'calsio',
+            'calcio',
             'fosforo',
             'hierro',
             'sodio',
             'potasio',
-            'magnecio',
+            'magnesio',
             'yodo',
             'zinc',
             'manganeso',
             'selenio',
             'cobre',
         ];
+	}
+
+
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function collection()
+    {
+        $alimentos = [];
+        foreach($this->comida['alimentos'] as $comida_alimento) {
+            $propiedades = [];
+            foreach($this->custom_head as $custom) {
+                $propiedades[$custom] = $comida_alimento[$custom];
+            }
+            $alimentos[] = $propiedades;
+
+        }
+        return collect($alimentos);
+    }
+
+    public function title(): string {
+        return $this->comida['nombre'];
+    }
+
+    public function headings(): array {
+        return $this->custom_head;
     }
 }

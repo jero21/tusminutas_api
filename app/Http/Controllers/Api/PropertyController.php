@@ -68,7 +68,7 @@ class PropertyController extends Controller
    */
   public function update(Request $request, Property $property)
   {
-      //
+    //
   }
 
   /**
@@ -79,6 +79,6 @@ class PropertyController extends Controller
    */
   public function destroy(Property $property)
   {
-      //
+    //
   }
 }
