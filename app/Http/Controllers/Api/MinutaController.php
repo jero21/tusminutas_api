@@ -195,7 +195,6 @@ class MinutaController extends Controller
     $rules = [
       'nombre' => 'required',
       'comidas' => 'required',
-      'totales' => 'required',
       'id_user' => 'required',
     ];
 
@@ -208,8 +207,39 @@ class MinutaController extends Controller
         ];
 
       } else {
-        $evento = Minuta::findOrFail($id);
-        $evento->update($request->all());
+        $minute = Minuta::findOrFail($id);
+        $minute->update($request->all());
+
+        $configuracion = $request->configuracion;
+        
+        $current_configurations = MinutaConfiguration::where('id_minuta', $minute->id)->get();
+
+        foreach($current_configurations as $current_configuration) {
+          FoodTypeConfiguration::where('id_configuracion_minuta', $current_configuration->id)->delete();
+          $current_configuration->delete();
+        }
+
+        foreach ($configuracion as $propiedad) {
+          $minuta_config = new MinutaConfiguration();
+          $minuta_config->id_minuta       = $minute->id;
+          $minuta_config->id_propiedad    = $propiedad['id_propiedad'];
+          $minuta_config->cant_maxima     = $propiedad['cant_maxima'];
+          $minuta_config->save();
+
+          $configuracion_comidas = $propiedad['configuracion_platos'];
+
+          foreach ($configuracion_comidas as $comidas) {
+            if (isset($comidas['porcentaje'])) {
+              $comidas_config = new FoodTypeConfiguration();
+
+              $comidas_config->id_configuracion_minuta    = $minuta_config->id;
+              $comidas_config->id_tipo_comida             = $comidas['id_tipo_comida'];
+              $comidas_config->cant_maxima                = $comidas['cant_maxima'];
+              $comidas_config->porcentaje                 = $comidas['porcentaje'];
+              $comidas_config->save();
+            }
+          }
+        }
         return ['update' => true];
       }
 
