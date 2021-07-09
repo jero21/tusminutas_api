@@ -21,7 +21,7 @@ use Illuminate\Support\Str;
         putenv('DB_HOST='.$dburl['host']);
         putenv('DB_DATABASE='.$database_name);
         putenv('DB_USERNAME='.$dburl['user']);
-        // putenv('DB_PASSWORD='.$dburl['pass']);
+        putenv('DB_PASSWORD='.$dburl['pass']);
     }
 
 
