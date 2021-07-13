@@ -26,24 +26,29 @@ class NutritionistFoodController extends Controller
      */
     public function store(Request $request) {
       $user = \JWTAuth::parseToken()->authenticate();
+      $nutritionist_food_user = new NutritionistFood();
       if (!is_array($request->all())) {
           return ['error' => 'request must be an array'];
       }
-
       $rules = [
           'nombre' => 'required',
           'grupo' => 'required',
           'subgrupo' => 'required',
       ];
-
       try {
-        $validator = \Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-          return [
+        if ($user->id_tipo_cuenta === 1 && count($nutritionist_food_user) === 5) {
+          return \Response::json([
             'created' => false,
-            'errors' => $validator->errors()->all(),
-          ];
-
+            'errors' => "User has basic plan",
+          ], 202);
+        } else {
+          $validator = \Validator::make($request->all(), $rules);
+          if ($validator->fails()) {
+            return [
+              'created' => false,
+              'errors' => $validator->errors()->all(),
+            ];
+          }
         } else {
           $alimento_nut = new NutritionistFood();
 
@@ -92,7 +97,6 @@ class NutritionistFoodController extends Controller
           $alimento_nut->selenio          = $request->selenio;
           $alimento_nut->cobre            = $request->cobre;
           $alimento_nut->id_user          = $user->id;
-          
           $alimento_nut->save();
 
           return ['created' => true];
