@@ -41,7 +41,7 @@ class MinutaController extends Controller
    */
   public function store(Request $request) {
     $user = JWTAuth::parseToken()->authenticate();
-    $minuta = new Minuta;
+    $minuta_user = Minuta::find($user->id);
     
     if (!is_array($request->all())) {
       return ['error' => 'request must be an array'];
@@ -49,14 +49,21 @@ class MinutaController extends Controller
     $rules = ['nombre' => 'required'];
 
     try {
-      $validator = \Validator::make($request->all(), $rules);
-      if ($validator->fails()) {
+      if ($user->id_tipo_cuenta === 1 && count($minuta_user) === 3) {
         return \Response::json([
           'created' => false,
-          'errors' => $validator->errors()->all(),
-        ], 500);
-
+          'errors' => "User has basic plan",
+        ], 202);
+      } else {
+        $validator = \Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+          return \Response::json([
+            'created' => false,
+            'errors' => $validator->errors()->all(),
+          ], 500);
+        }
       } else { 
+        $minuta = new Minuta;
         $minuta->nombre         = $request->nombre;
         $minuta->descripcion    = $request->descripcion;
         $minuta->comidas        = $request->comidas;
