@@ -61,40 +61,39 @@ class MinutaController extends Controller
             'created' => false,
             'errors' => $validator->errors()->all(),
           ], 500);
-        }
-      } else { 
-        $minuta = new Minuta;
-        $minuta->nombre         = $request->nombre;
-        $minuta->descripcion    = $request->descripcion;
-        $minuta->comidas        = $request->comidas;
-        $minuta->id_user        = $user->id;
-        $minuta->save();
+        } else { 
+          $minuta = new Minuta;
+          $minuta->nombre         = $request->nombre;
+          $minuta->descripcion    = $request->descripcion;
+          $minuta->comidas        = $request->comidas;
+          $minuta->id_user        = $user->id;
+          $minuta->save();
 
-        $configuracion = $request->configuracion;
+          $configuracion = $request->configuracion;
 
-        foreach ($configuracion as $propiedad) {
-          $minuta_config = new MinutaConfiguration();
-          $minuta_config->id_minuta       = $minuta->id;
-          $minuta_config->id_propiedad    = $propiedad['id_propiedad'];
-          $minuta_config->cant_maxima     = $propiedad['cant_maxima'];
-          $minuta_config->save();
+          foreach ($configuracion as $propiedad) {
+            $minuta_config = new MinutaConfiguration();
+            $minuta_config->id_minuta       = $minuta->id;
+            $minuta_config->id_propiedad    = $propiedad['id_propiedad'];
+            $minuta_config->cant_maxima     = $propiedad['cant_maxima'];
+            $minuta_config->save();
 
-          $configuracion_comidas = $propiedad['configuracion_platos'];
+            $configuracion_comidas = $propiedad['configuracion_platos'];
 
-          foreach ($configuracion_comidas as $comidas) {
-            if (isset($comidas['porcentaje'])) {
-              $comidas_config = new FoodTypeConfiguration();
+            foreach ($configuracion_comidas as $comidas) {
+              if (isset($comidas['porcentaje'])) {
+                $comidas_config = new FoodTypeConfiguration();
 
-              $comidas_config->id_configuracion_minuta    = $minuta_config->id;
-              $comidas_config->id_tipo_comida             = $comidas['id_tipo_comida'];
-              $comidas_config->cant_maxima                = $comidas['cant_maxima'];
-              $comidas_config->porcentaje                 = $comidas['porcentaje'];
-              $comidas_config->save();
+                $comidas_config->id_configuracion_minuta    = $minuta_config->id;
+                $comidas_config->id_tipo_comida             = $comidas['id_tipo_comida'];
+                $comidas_config->cant_maxima                = $comidas['cant_maxima'];
+                $comidas_config->porcentaje                 = $comidas['porcentaje'];
+                $comidas_config->save();
+              }
             }
           }
+          return ['created' => true, 'minuta' => $minuta];
         }
-        
-        return ['created' => true, 'minuta' => $minuta];
       }
 
     } catch (Exception $e) {

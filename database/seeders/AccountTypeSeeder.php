@@ -12,6 +12,7 @@ class AccountTypeSeeder extends Seeder {
 	 * @return void
 	 */
 	public function run() {
-		AccountType::updateOrCreate(['nombre' => 'Profesional']);
+		AccountType::updateOrCreate(['nombre' => 'Basic']);
+		AccountType::updateOrCreate(['nombre' => 'Profetional']);
 	}
 }
