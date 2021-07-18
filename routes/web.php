@@ -4,6 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\App;
+
+
+if (\App::environment('production')) {
+    \URL::forceScheme('https');
+}
 
 /*
 |--------------------------------------------------------------------------
