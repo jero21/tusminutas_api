@@ -19,7 +19,7 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
-Route::middleware('auth:sanctum')->group(function() {
+//Route::middleware('auth:sanctum')->group(function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/users', [UserController::class, 'index'])->name('users');
-});
+//});
