@@ -21,6 +21,7 @@ class UserController extends Controller
             ->select(DB::raw('count(minutas.id) as minutas'), 'users.nombre', 'users.email', 'account_type.nombre as cuenta')
             ->groupBy('minutas.id', 'users.nombre', 'users.email', 'account_type.nombre')
             ->orderBy('minutas', 'desc')
+            ->distinct()
             ->get();
 
         return Inertia::render('User/Users', ['users' => $users]);
