@@ -22,10 +22,10 @@ class DashboardController extends Controller
         $users = User::all();
         $count_users = $users->count();
 
-        $users_basic = User::where('id_profile', 1)->get();
+        $users_basic = User::where('id_tipo_cuenta', 1)->get();
         $count_users_basic = $users_basic->count();
 
-        $users_profetional = User::where('id_profile', 2)->get();
+        $users_profetional = User::where('id_tipo_cuenta', 2)->get();
         $count_users_profetional = $users_profetional->count();
 
         /* **********MINUTAS**************** */
