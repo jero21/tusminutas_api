@@ -24,6 +24,7 @@ export default {
 			headers: [
 	          { text: 'Nombre', value: 'nombre' },
 	          { text: 'Email', value: 'email' },
+	          { text: 'Minutas', value: 'minutas' },
 	          { text: 'Cuena', value: 'cuenta' }
 	        ]
 		}

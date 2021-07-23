@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
+//use App\Models\Minuta;
 
 class DashboardController extends Controller
 {
@@ -18,7 +19,13 @@ class DashboardController extends Controller
         $users = User::all();
         $count_users = $users->count();
 
-        return Inertia::render('Dashboard', ['count_users' => $count_users]);
+        //$minutas = Minuta::all();
+        //$count_minutas = $minutas->count();
+
+        return Inertia::render('Dashboard', [
+            'count_users' => $count_users
+            //'count_minutas' => $count_minutas
+        ]);
     }
 
     /**

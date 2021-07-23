@@ -2956,6 +2956,9 @@ __webpack_require__.r(__webpack_exports__);
         text: 'Email',
         value: 'email'
       }, {
+        text: 'Minutas',
+        value: 'minutas'
+      }, {
         text: 'Cuena',
         value: 'cuenta'
       }]

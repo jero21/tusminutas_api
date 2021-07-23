@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
+use DB;
 
 class UserController extends Controller
 {
@@ -16,7 +17,10 @@ class UserController extends Controller
     public function index()
     {
         $users = User::join('account_type', 'users.id_tipo_cuenta', '=', 'account_type.id')
-            ->select('users.nombre', 'users.email', 'account_type.nombre as cuenta')
+            ->leftJoin('minutas', 'users.id', '=', 'minutas.id_user')
+            ->select(DB::raw('count(minutas.id) as minutas'), 'users.nombre', 'users.email', 'account_type.nombre as cuenta')
+            ->groupBy('minutas.id', 'users.nombre', 'users.email', 'account_type.nombre')
+            ->orderBy('minutas', 'desc')
             ->get();
 
         return Inertia::render('User/Users', ['users' => $users]);
