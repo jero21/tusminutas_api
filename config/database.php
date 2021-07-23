@@ -20,7 +20,7 @@ use Illuminate\Support\Str;
         $database_name =  str_replace('/', '', $dburl['path']);
         putenv('DB_HOST='.$dburl['host']);
         putenv('DB_DATABASE='.$database_name);
-        //putenv('DB_PASSWORD='.$dburl['pass']);
+        putenv('DB_PASSWORD='.$dburl['pass']);
         putenv('DB_USERNAME='.$dburl['user']);
     }
 
