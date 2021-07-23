@@ -25,6 +25,7 @@ export default {
 	          { text: 'Nombre', value: 'nombre' },
 	          { text: 'Email', value: 'email' },
 	          { text: 'Minutas', value: 'minutas' },
+	          { text: 'Compartido con', value: 'compartido' },
 	          { text: 'Cuena', value: 'cuenta' }
 	        ]
 		}

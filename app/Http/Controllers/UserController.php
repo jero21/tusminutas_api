@@ -18,8 +18,9 @@ class UserController extends Controller
     {
         $users = User::join('account_type', 'users.id_tipo_cuenta', '=', 'account_type.id')
             ->leftJoin('minutas', 'users.id', '=', 'minutas.id_user')
-            ->select(DB::raw('count(minutas.id) as minutas'), 'users.nombre', 'users.email', 'account_type.nombre as cuenta')
-            ->groupBy('minutas.id', 'users.nombre', 'users.email', 'account_type.nombre')
+            ->leftJoin('client_minuta', 'minutas.id_minuta_cliente', '=', 'client_minuta.id')
+            ->select(DB::raw('count(minutas.id) as minutas'), 'users.nombre', 'users.email', 'account_type.nombre as cuenta', 'client_minuta.nombre as compartido')
+            ->groupBy('minutas.id', 'users.nombre', 'users.email', 'account_type.nombre', 'client_minuta.nombre')
             ->orderBy('minutas', 'desc')
             ->distinct()
             ->get();

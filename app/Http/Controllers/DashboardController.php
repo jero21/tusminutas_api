@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
-//use App\Models\Minuta;
+use App\Models\Minuta;
+use App\Models\NutritionistFood;
 
 class DashboardController extends Controller
 {
@@ -16,15 +17,38 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        /* **********USUARIOS**************** */
+
         $users = User::all();
         $count_users = $users->count();
 
-        //$minutas = Minuta::all();
-        //$count_minutas = $minutas->count();
+        $users_basic = User::where('id_profile', 1)->get();
+        $count_users_basic = $users_basic->count();
+
+        $users_profetional = User::where('id_profile', 2)->get();
+        $count_users_profetional = $users_profetional->count();
+
+        /* **********MINUTAS**************** */
+
+        $minutes = Minuta::all();
+        $count_minutes = $minutes->count();
+
+        $shared_minutes = Minuta::join('client_minuta', 'minutas.id_minuta_cliente', '=', 'client_minuta.id')->get();
+        $count_shared_minutes = $shared_minutes->count();
+
+        /* **********ALIMENTOS**************** */
+
+        $foods = NutritionistFood::all();
+        $count_foods = $foods->count();
 
         return Inertia::render('Dashboard', [
-            'count_users' => $count_users
-            //'count_minutas' => $count_minutas
+            'count_users' => $count_users,
+            'count_users_basic' => $count_users_basic,
+            'count_users_profetional' => $count_users_profetional,
+            'count_minutes' => $count_minutes,
+            'count_shared_minutes' => $count_shared_minutes,
+            'count_foods' => $count_foods,
+
         ]);
     }
 
