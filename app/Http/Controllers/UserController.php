@@ -29,44 +29,12 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }
@@ -93,4 +61,21 @@ class UserController extends Controller
     {
         //
     }
+
+    public function usersByAccountType(Request $request)
+    {
+        $users = DB::table('users')
+            ->select('users.nombre', 'users.email', 'account_type.nombre as cuenta', DB::raw('count(minutas.id) as minutas'))
+            ->join('account_type', 'users.id_tipo_cuenta', '=', 'account_type.id')
+            ->leftJoin('minutas', 'users.id', '=', 'minutas.id_user')
+            ->where('users.id_tipo_cuenta', $request->account_type)
+            ->groupBy('users.id', 'users.nombre', 'users.email', 'account_type.nombre')
+            ->orderBy('minutas', 'desc')
+            ->distinct()
+            ->get();
+
+        return Inertia::render('User/Users', ['users' => $users]);
+
+    }
+
 }

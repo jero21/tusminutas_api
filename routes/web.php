@@ -22,4 +22,5 @@ Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::post('/users/account_type', [UserController::class, 'usersByAccountType']);
 });

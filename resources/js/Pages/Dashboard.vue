@@ -1,5 +1,6 @@
 <template>
   <app-layout id="inspire" app dark>
+    <h2 class="text-center mb-3">Dashboard</h2>
     <v-row>
       <v-col cols="5" offset-sm="0">
         <v-card>
@@ -18,14 +19,18 @@
                   </v-list-item-content>
                   <v-list-item-content>
                     <v-list-item-title>
-                      <v-icon> mdi-account </v-icon>
-                      Plan Básico: {{ count_users_basic }}
+                      <Link href="/users/account_type/" method="post" :data="{ account_type: 1 }" class="text-decoration-none">
+                        <v-icon> mdi-account </v-icon>
+                        Plan Básico: {{ count_users_basic }}
+                      </Link>
                     </v-list-item-title>
                   </v-list-item-content>
                   <v-list-item-content>
                     <v-list-item-title>
-                      <v-icon> mdi-account-check </v-icon>
-                      Plan Profesional: {{ count_users_profetional }}
+                      <Link href="/users/account_type/" method="post" :data="{ account_type: 2 }" class="text-decoration-none">
+                        <v-icon> mdi-account-check </v-icon>
+                        Plan Profesional: {{ count_users_profetional }}
+                      </Link>
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
@@ -80,9 +85,11 @@
 </template>
 <script>
 import AppLayout from '../Layouts/AppLayout'
+import { Link } from '@inertiajs/inertia-vue'
 export default {
   components: {
-    AppLayout
+    AppLayout,
+    Link
   },
   props: {
       count_users: '',
