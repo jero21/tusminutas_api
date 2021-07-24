@@ -2968,6 +2968,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -3032,9 +3034,6 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         text: 'Minutas',
         value: 'minutas'
-      }, {
-        text: 'Compartido con',
-        value: 'compartido'
       }, {
         text: 'Cuena',
         value: 'cuenta'
@@ -44719,13 +44718,23 @@ var render = function() {
                                 _c(
                                   "v-list-item-title",
                                   [
-                                    _c("v-icon", [
-                                      _vm._v(" mdi-account-multiple ")
-                                    ]),
-                                    _vm._v(
-                                      " \n                    Total: " +
-                                        _vm._s(_vm.count_users) +
-                                        "\n                  "
+                                    _c(
+                                      "inertia-link",
+                                      {
+                                        staticClass: "text-decoration-none",
+                                        attrs: { href: _vm.route("users") }
+                                      },
+                                      [
+                                        _c("v-icon", [
+                                          _vm._v(" mdi-account-multiple ")
+                                        ]),
+                                        _vm._v(
+                                          " \n                      Total: " +
+                                            _vm._s(_vm.count_users) +
+                                            "\n                    "
+                                        )
+                                      ],
+                                      1
                                     )
                                   ],
                                   1

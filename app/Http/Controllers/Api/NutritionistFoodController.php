@@ -26,7 +26,7 @@ class NutritionistFoodController extends Controller
      */
     public function store(Request $request) {
       $user = \JWTAuth::parseToken()->authenticate();
-      $nutritionist_food_user = new NutritionistFood();
+      $nutritionist_food_user = NutritionistFood::where('id_user', $user->id)->get();
       if (!is_array($request->all())) {
           return ['error' => 'request must be an array'];
       }

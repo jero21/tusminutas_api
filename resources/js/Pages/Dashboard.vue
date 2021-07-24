@@ -10,8 +10,10 @@
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title>
-                      <v-icon> mdi-account-multiple </v-icon> 
-                      Total: {{ count_users }}
+                      <inertia-link :href="route('users')" class="text-decoration-none">
+                        <v-icon> mdi-account-multiple </v-icon> 
+                        Total: {{ count_users }}
+                      </inertia-link>
                     </v-list-item-title>
                   </v-list-item-content>
                   <v-list-item-content>
