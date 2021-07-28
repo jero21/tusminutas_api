@@ -41,7 +41,7 @@ class MinutaController extends Controller
    */
   public function store(Request $request) {
     $user = JWTAuth::parseToken()->authenticate();
-    $minuta_user = Minuta::find($user->id);
+    $minuta_user = Minuta::where('id_user',$user->id)->get();
     
     if (!is_array($request->all())) {
       return ['error' => 'request must be an array'];
