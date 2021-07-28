@@ -2890,6 +2890,83 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+/* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2900,12 +2977,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default
+    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
+    Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_1__.Link
   },
   props: {
-    count_users: ''
+    count_users: '',
+    count_users_basic: '',
+    count_users_profetional: '',
+    count_minutes: '',
+    count_shared_minutes: '',
+    count_foods: ''
   },
   data: function data() {
     return {//
@@ -2955,6 +3039,9 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         text: 'Email',
         value: 'email'
+      }, {
+        text: 'Minutas',
+        value: 'minutas'
       }, {
         text: 'Cuena',
         value: 'cuenta'
@@ -44612,19 +44699,267 @@ var render = function() {
     "app-layout",
     { attrs: { id: "inspire", app: "", dark: "" } },
     [
+      _c("h2", { staticClass: "text-center mb-3" }, [_vm._v("Dashboard")]),
+      _vm._v(" "),
       _c(
-        "inertia-link",
-        {
-          staticClass: "text-decoration-none",
-          attrs: { href: _vm.route("users") }
-        },
+        "v-row",
         [
-          _c("h2", { staticClass: "text-center", attrs: { color: "black" } }, [
-            _vm._v(
-              "Total usuarios registrados: " + _vm._s(_vm.count_users) + " "
-            )
-          ])
-        ]
+          _c(
+            "v-col",
+            { attrs: { cols: "5", "offset-sm": "0" } },
+            [
+              _c(
+                "v-card",
+                [
+                  _c("v-subheader", [_vm._v(" USUARIOS ")]),
+                  _vm._v(" "),
+                  _c("v-divider"),
+                  _vm._v(" "),
+                  _c(
+                    "v-list",
+                    [
+                      [
+                        _c(
+                          "v-list-item",
+                          [
+                            _c(
+                              "v-list-item-content",
+                              [
+                                _c(
+                                  "v-list-item-title",
+                                  [
+                                    _c(
+                                      "inertia-link",
+                                      {
+                                        staticClass: "text-decoration-none",
+                                        attrs: { href: _vm.route("users") }
+                                      },
+                                      [
+                                        _c("v-icon", [
+                                          _vm._v(" mdi-account-multiple ")
+                                        ]),
+                                        _vm._v(
+                                          " \n                      Total: " +
+                                            _vm._s(_vm.count_users) +
+                                            "\n                    "
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-list-item-content",
+                              [
+                                _c(
+                                  "v-list-item-title",
+                                  [
+                                    _c(
+                                      "Link",
+                                      {
+                                        staticClass: "text-decoration-none",
+                                        attrs: {
+                                          href: "/users/account_type/",
+                                          method: "post",
+                                          data: { account_type: 1 }
+                                        }
+                                      },
+                                      [
+                                        _c("v-icon", [_vm._v(" mdi-account ")]),
+                                        _vm._v(
+                                          "\n                      Plan Básico: " +
+                                            _vm._s(_vm.count_users_basic) +
+                                            "\n                    "
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-list-item-content",
+                              [
+                                _c(
+                                  "v-list-item-title",
+                                  [
+                                    _c(
+                                      "Link",
+                                      {
+                                        staticClass: "text-decoration-none",
+                                        attrs: {
+                                          href: "/users/account_type/",
+                                          method: "post",
+                                          data: { account_type: 2 }
+                                        }
+                                      },
+                                      [
+                                        _c("v-icon", [
+                                          _vm._v(" mdi-account-check ")
+                                        ]),
+                                        _vm._v(
+                                          "\n                      Plan Profesional: " +
+                                            _vm._s(
+                                              _vm.count_users_profetional
+                                            ) +
+                                            "\n                    "
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ]
+                    ],
+                    2
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "5" } },
+            [
+              _c(
+                "v-card",
+                [
+                  _c("v-subheader", [_vm._v(" MINUTAS ")]),
+                  _vm._v(" "),
+                  _c("v-divider"),
+                  _vm._v(" "),
+                  _c(
+                    "v-list",
+                    [
+                      [
+                        _c(
+                          "v-list-item",
+                          [
+                            _c(
+                              "v-list-item-content",
+                              [
+                                _c(
+                                  "v-list-item-title",
+                                  [
+                                    _c("v-icon", [
+                                      _vm._v(" mdi-format-list-checks ")
+                                    ]),
+                                    _vm._v(
+                                      "\n                    Total: " +
+                                        _vm._s(_vm.count_minutes) +
+                                        "\n                  "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-list-item-content",
+                              [
+                                _c(
+                                  "v-list-item-title",
+                                  [
+                                    _c("v-icon", [
+                                      _vm._v(" mdi-share-variant ")
+                                    ]),
+                                    _vm._v(
+                                      "\n                    Compartidas: " +
+                                        _vm._s(_vm.count_shared_minutes) +
+                                        "\n                  "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ]
+                    ],
+                    2
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "2" } },
+            [
+              _c(
+                "v-card",
+                [
+                  _c("v-subheader", [_vm._v(" ALIMENTOS NUTRICIONISTAS ")]),
+                  _vm._v(" "),
+                  _c("v-divider"),
+                  _vm._v(" "),
+                  _c(
+                    "v-list",
+                    [
+                      [
+                        _c(
+                          "v-list-item",
+                          [
+                            _c(
+                              "v-list-item-content",
+                              [
+                                _c(
+                                  "v-list-item-title",
+                                  [
+                                    _c("v-icon", [_vm._v(" mdi-food-apple ")]),
+                                    _vm._v(
+                                      "\n                      Total: " +
+                                        _vm._s(_vm.count_foods) +
+                                        "\n                    "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ]
+                    ],
+                    2
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
       )
     ],
     1
