@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use App\Models\LenguageLevel;
 use App\Models\OtherStudies;
-use App\Models\Rrss;
 use Illuminate\Http\Request;
+use App\Models\Lenguage;
+use App\Models\TypeRrss;
+use App\Models\Rrss;
 
 class ProfileController extends Controller
 {
@@ -46,8 +48,7 @@ class ProfileController extends Controller
                 'otherStudies', 
                 'rrss.typesRrss'
             ]
-        )->where('id', $id)->first();
-            
+        )->where('id', $id)->first();    
     }
 
     /**
@@ -71,5 +72,13 @@ class ProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function typeRrss () {
+        return TypeRrss::all();
+    }
+
+    public function lenguage () {
+        return Lenguage::all();
     }
 }
