@@ -39,7 +39,6 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 	Route::apiResource('nutricionistas', UserController::class);
 	Route::apiResource('propiedad', PropertyController::class);
 	Route::apiResource('profile', ProfileController::class);
-	
 	Route::apiResource('type_rrss', TypeRrssController::class);
 	Route::apiResource('lenguage', LenguageController::class);
 
@@ -56,5 +55,3 @@ Route::get('excel/{id_minuta}', [MinutaController::class, 'exportExcel']);
 Route::get('index_minuta_cliente/{uuid}', [MinutaController::class, 'indexCliente']);
 Route::get('show_minuta_cliente/{uuid}', [MinutaController::class, 'showCliente']);
 Route::get('propiedad', [PropertyController::class, 'indexCliente']);
-
-Route::get('usuarios', [UserController::class, 'index']);
