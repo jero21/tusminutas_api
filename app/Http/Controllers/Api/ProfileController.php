@@ -9,6 +9,7 @@ use App\Models\LenguageLevel;
 use App\Models\OtherStudies;
 use App\Models\Profile;
 use App\Models\Rrss;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -32,7 +33,7 @@ class ProfileController extends Controller
     {
       $user_auth = JWTAuth::parseToken()->authenticate();
         
-      DB::transaction(function() use ($request, $user_auth) {
+      \DB::transaction(function() use ($request, $user_auth) {
 
         // Profile
         if ($request->id_profile) {
@@ -60,7 +61,7 @@ class ProfileController extends Controller
         // LenguageLevel
         $lenguages = $request->lenguages_level;
         foreach ($lenguages as $key => $lenguage) {
-          $leguage_level = LenguageLevel::find($lenguage->id)
+          $leguage_level = LenguageLevel::find($lenguage->id);
           if (isset($leguage_level)) {
             $leguage_level = new LenguageLevel();
           }
@@ -73,7 +74,7 @@ class ProfileController extends Controller
         // RRSS
         $redes_sociales = $request->redes_sociales;
         foreach ($redes_sociales as $key => $red_social) {
-          $rrss = Rrss::find($red_social->id)
+          $rrss = Rrss::find($red_social->id);
           if (isset($rrss)) {
             $rrss = new Rrss();
           }
@@ -86,7 +87,7 @@ class ProfileController extends Controller
         // OTHER STUDIES
         $other_studies = $request->other_studies;
         foreach ($other_studies as $key => $studie) {
-          $other_studie = OtherStudies::find($studie->id)
+          $other_studie = OtherStudies::find($studie->id);
           if (isset($other_studie)) {
             $other_studie = new OtherStudies();
           }

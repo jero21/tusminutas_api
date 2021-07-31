@@ -39,7 +39,8 @@ class ApiAuthController extends Controller {
       'id'    => $user->id,  
       'email' => $user->email,
       'name'  => $user->nombre,
-      'avatar'=> $user->avatar
+      'avatar'=> $user->avatar,
+      'id_profile' => $user->id_profile
     ]);
   }
     
