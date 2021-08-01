@@ -46,8 +46,8 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 	Route::post('update_config', [MinutaController::class, 'updateConfig']);
 
 	// Profile
-	Route::get('publish_profile', [ProfileController::class, 'publishProfile']);
-	Route::get('unpublish_profile', [ProfileController::class, 'unpublishProfile']);
+	Route::get('publish_profile/{id_profile}', [ProfileController::class, 'publishProfile']);
+	Route::get('unpublish_profile/{id_profile}', [ProfileController::class, 'unpublishProfile']);
 
 });
 
