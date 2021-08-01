@@ -130,19 +130,38 @@ class ProfileController extends Controller
     }
 
     // Publicar perfil sólo si el usuario tiene una cuenta premium
-    public function postProfile ($id_profile) {
-      $user = JWTAuth::parseToken()->authenticate();
-      if ($user->id_tipo_cuenta === 1) {
-        return \Response::json([
-          'created' => false,
-          'errors' => "User has basic plan",
-        ], 202);
-      } else {
+    public function publishProfile ($id_profile) {
+      try {
+        $user = JWTAuth::parseToken()->authenticate();
+        if ($user->id_tipo_cuenta === 1) {
+          return \Response::json([
+            'published' => false,
+            'errors' => "User has basic plan",
+          ], 202);
+        } else {
+          $profile = Profile::find($request->id_profile);
+          $profile->id_profile_status = 2;
+          $profile->save();
+
+          return \Response::json(['published' => true], 200);
+        }
+      } catch (Exception $e) {
+        \Log::info('Error pusblish profile: ' . $e);
+        return \Response::json(['published' => false], 500);
+      }
+    }
+
+    public function unpublishProfile ($id_profile) {
+      try {
+
         $profile = Profile::find($request->id_profile);
-        $profile->id_profile_status = 2;
+        $profile->id_profile_status = 1;
         $profile->save();
 
-        return \Response::json(['published' => true], 200);
+        return \Response::json(['unpublished' => true], 200);
+      } catch (Exception $e) {
+        \Log::info('Error unpublished profile: ' . $e);
+        return \Response::json(['unpublished' => false], 500);
       }
     }
 }
