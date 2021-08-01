@@ -99,6 +99,15 @@ class ProfileController extends Controller
           $other_studie->id_profile      = $profile->id;
           $other_studie->save();
         }
+
+        if ($request->hasfile(key:'avatar')) {
+          $file = $request->file(key:'avatar');
+          $filename = $file->getClientOriginalName();
+          $file->storeAs(path: 'avatars/' . $user_auth->id, $filename, options: 's3');
+          $user->update([
+            'avatar' => $filename
+          ])
+        }
       });
       return \Response::json(['create' => true], 200);
     }
