@@ -24,6 +24,8 @@ class Profile extends Model
         'witio_web',
         'genero',
         'telefono',
+        'email_profesional',
+        'username',
         'id_profile_status',
     ];
 
