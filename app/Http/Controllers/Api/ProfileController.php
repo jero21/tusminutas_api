@@ -41,12 +41,15 @@ class ProfileController extends Controller
         } else {
           $profile = new Profile();
         }
-        $profile->profesion       = $request->profesion;
-        $profile->presentacion    = $request->presentacion;
-        $profile->ocupacion       = $request->ocupacion;
-        $profile->especializacion = $request->especializacion;
-        $profile->witio_web       = $request->sitio_web;
-        $profile->telefono        = $request->telefono;
+        $profile->profesion         = $request->profesion;
+        $profile->presentacion      = $request->presentacion;
+        $profile->ocupacion         = $request->ocupacion;
+        $profile->especializacion   = $request->especializacion;
+        $profile->witio_web         = $request->sitio_web;
+        $profile->telefono          = $request->telefono;
+        $profile->email_profesional = $request->email_profesional;
+        $profile->username          = $request->username;
+        $profile->id_profile_status = 1;
         $profile->save();
 
         // User
@@ -96,7 +99,6 @@ class ProfileController extends Controller
           $other_studie->id_profile      = $profile->id;
           $other_studie->save();
         }
-
       });
       return \Response::json(['create' => true], 200);
     }
@@ -118,26 +120,20 @@ class ProfileController extends Controller
         )->where('id', $id)->first();    
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    // Publicar perfil sólo si el usuario tiene una cuenta premium
+    public function postProfile ($id_profile) {
+      $user = JWTAuth::parseToken()->authenticate();
+      if ($user->id_tipo_cuenta === 1) {
+        return \Response::json([
+          'created' => false,
+          'errors' => "User has basic plan",
+        ], 202);
+      } else {
+        $profile = Profile::find($request->id_profile);
+        $profile->id_profile_status = 2;
+        $profile->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return \Response::json(['published' => true], 200);
+      }
     }
 }

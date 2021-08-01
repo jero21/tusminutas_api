@@ -24,6 +24,7 @@ class Profile extends Model
         'witio_web',
         'genero',
         'telefono',
+        'id_profile_status',
     ];
 
     protected $hidden = ['created_at', 'updated_at'];
