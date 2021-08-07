@@ -55,7 +55,11 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 Route::post('auth_login', [ApiAuthController::class, 'userAuth']);
 // Excel Export
 Route::get('excel/{id_minuta}', [MinutaController::class, 'exportExcel']);
-// Minuta Cliente
+
+// LINK MINUTA PACIENTE
 Route::get('index_minuta_cliente/{uuid}', [MinutaController::class, 'indexCliente']);
 Route::get('show_minuta_cliente/{uuid}', [MinutaController::class, 'showCliente']);
 Route::get('propiedad', [PropertyController::class, 'indexCliente']);
+
+// LINK PERFIL USUARIO
+Route::get('show_profile/{username}', [PropertyController::class, 'showPerfil']);
