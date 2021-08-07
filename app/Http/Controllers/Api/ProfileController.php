@@ -60,39 +60,33 @@ class ProfileController extends Controller
 
         // LenguageLevel
         $lenguages = $request->lenguages_level;
+        LenguageLevel::where('id_profile', $profile->id)->delete();
         foreach ($lenguages as $key => $lenguage) {
-          $leguage_level = LenguageLevel::find($lenguage->id);
-          if (isset($leguage_level)) {
-            $leguage_level = new LenguageLevel();
-          }
-          $leguage_level->nivel_manejo  = $request->nivel_manejo;
-          $leguage_level->id_lenguage   = $request->id_lenguage;
+          $leguage_level = new LenguageLevel();
+          $leguage_level->nivel_manejo  = $lenguage['nivel_manejo'];
+          $leguage_level->id_lenguage   = $lenguage['id_lenguage'];
           $leguage_level->id_profile    = $profile->id;
           $leguage_level->save();
         }
 
         // RRSS
         $redes_sociales = $request->redes_sociales;
+        Rrss::where('id_profile', $profile->id)->delete();
         foreach ($redes_sociales as $key => $red_social) {
-          $rrss = Rrss::find($red_social->id);
-          if (isset($rrss)) {
-            $rrss = new Rrss();
-          }
-          $rrss->url          = $red_social->url;
-          $rrss->id_type_rrss = $red_social->id_type_rrss;
+          $rrss = new Rrss();
+          $rrss->url          = $red_social['url'];
+          $rrss->id_type_rrss = $red_social['id_type_rrss'];
           $rrss->id_profile   = $profile->id;
           $rrss->save();
         }
 
         // OTHER STUDIES
         $other_studies = $request->other_studies;
+        OtherStudies::where('id_profile', $profile->id)->delete();
         foreach ($other_studies as $key => $studie) {
-          $other_studie = OtherStudies::find($studie->id);
-          if (isset($other_studie)) {
-            $other_studie = new OtherStudies();
-          }
-          $other_studie->nombre  = $studie->nombre;
-          $other_studie->lugar   = $studie->lugar;
+          $other_studie = new OtherStudies();
+          $other_studie->nombre  = $studie['nombre'];
+          $other_studie->lugar   = $studie['lugar'] ? $studie['lugar'] : '';
           $other_studie->id_profile      = $profile->id;
           $other_studie->save();
         }
