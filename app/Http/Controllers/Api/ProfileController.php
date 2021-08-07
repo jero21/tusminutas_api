@@ -41,12 +41,15 @@ class ProfileController extends Controller
         } else {
           $profile = new Profile();
         }
-        $profile->profesion       = $request->profesion;
-        $profile->presentacion    = $request->presentacion;
-        $profile->ocupacion       = $request->ocupacion;
-        $profile->especializacion = $request->especializacion;
-        $profile->witio_web       = $request->sitio_web;
-        $profile->telefono        = $request->telefono;
+        $profile->profesion         = $request->profesion;
+        $profile->presentacion      = $request->presentacion;
+        $profile->ocupacion         = $request->ocupacion;
+        $profile->especializacion   = $request->especializacion;
+        $profile->witio_web         = $request->sitio_web;
+        $profile->telefono          = $request->telefono;
+        $profile->email_profesional = $request->email_profesional;
+        $profile->username          = $request->username;
+        $profile->id_profile_status = 1;
         $profile->save();
 
         // User
@@ -91,6 +94,14 @@ class ProfileController extends Controller
           $other_studie->save();
         }
 
+        if ($request->hasfile(key:'avatar')) {
+          $file = $request->file(key:'avatar');
+          $filename = $file->getClientOriginalName();
+          $file->storeAs(path: 'avatars/' . $user_auth->id, $filename, options: 's3');
+          $user->update([
+            'avatar' => $filename
+          ])
+        }
       });
       return \Response::json(['create' => true], 200);
     }
@@ -112,26 +123,39 @@ class ProfileController extends Controller
         )->where('id', $id)->first();    
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    // Publicar perfil sólo si el usuario tiene una cuenta premium
+    public function publishProfile ($id_profile) {
+      try {
+        $user = JWTAuth::parseToken()->authenticate();
+        if ($user->id_tipo_cuenta === 1) {
+          return \Response::json([
+            'published' => false,
+            'errors' => "User has basic plan",
+          ], 202);
+        } else {
+          $profile = Profile::find($request->id_profile);
+          $profile->id_profile_status = 2;
+          $profile->save();
+
+          return \Response::json(['published' => true], 200);
+        }
+      } catch (Exception $e) {
+        \Log::info('Error pusblish profile: ' . $e);
+        return \Response::json(['published' => false], 500);
+      }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function unpublishProfile ($id_profile) {
+      try {
+
+        $profile = Profile::find($request->id_profile);
+        $profile->id_profile_status = 1;
+        $profile->save();
+
+        return \Response::json(['unpublished' => true], 200);
+      } catch (Exception $e) {
+        \Log::info('Error unpublished profile: ' . $e);
+        return \Response::json(['unpublished' => false], 500);
+      }
     }
 }
