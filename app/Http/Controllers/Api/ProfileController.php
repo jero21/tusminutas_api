@@ -114,13 +114,13 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        return Profile::with(
-            [
-                'nivelLenguaje.lenguaje', 
-                'otherStudies', 
-                'rrss.typesRrss'
-            ]
-        )->where('id', $id)->first();    
+      return Profile::with(
+          [
+              'nivelLenguaje.lenguaje', 
+              'otherStudies', 
+              'rrss.typesRrss'
+          ]
+      )->where('id', $id)->first();
     }
 
     // Publicar perfil sólo si el usuario tiene una cuenta premium
@@ -156,6 +156,29 @@ class ProfileController extends Controller
       } catch (Exception $e) {
         \Log::info('Error unpublished profile: ' . $e);
         return \Response::json(['unpublished' => false], 500);
+      }
+    }
+
+    public function showPerfil ($username) {
+
+      $user = Profile::join('users', 'profile.id', '=', 'users.id_profile')
+            ->select('users.id_tipo_cuenta', 'profile.id as id_profile')
+            ->where('profile.username', $username)
+            ->first();
+
+      if ($user !== null && $user->id_tipo_cuenta === 2) {
+          
+          //query
+          return Profile::with(
+            [
+                'nivelLenguaje.lenguaje', 
+                'otherStudies', 
+                'rrss.typesRrss'
+            ]
+        )->where('id', $user->id_profile)->first();
+
+      } else {
+        return \Response::json(['error' => true], 404);
       }
     }
 }

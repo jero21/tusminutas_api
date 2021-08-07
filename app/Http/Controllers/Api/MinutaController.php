@@ -130,7 +130,7 @@ class MinutaController extends Controller
       return ['created' => true];
 
     } catch (Exception $e) {
-      \Log::info('Error creating user: ' . $e);
+      \Log::info('Error creating minuta: ' . $e);
       return \Response::json(['created' => false], 500);
     }
   }
