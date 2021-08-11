@@ -31,7 +31,24 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
+      $base_url = 'https://s3.us-east-2.amazonaws.com/s3.tusminutas.cl/';
       $user_auth = JWTAuth::parseToken()->authenticate();
+      $user = User::find($user_auth->id);
+
+      if ($request->hasfile('avatar')) {
+        $file = $request->file('avatar');
+        $filename = $file->getClientOriginalName();
+        // $file->storeAs('avatars/', $user_auth->id, $filename, options: 's3');
+        $avatar_url = \Storage::disk('s3')->putFile('avatars/'.$user_auth->id, $file);
+        //$avatar_url = \Storage::get($avatar_url);
+        
+        $user->update([
+          'avatar' => $base_url.$avatar_url
+        ]);
+        
+
+        return \Response::json(['create' => true, 'avatar' => $base_url.$avatar_url], 200);
+      }
         
       \DB::transaction(function() use ($request, $user_auth) {
 
@@ -93,16 +110,17 @@ class ProfileController extends Controller
           $other_studie->id_profile      = $profile->id;
           $other_studie->save();
         }
-        /*
+        
         if ($request->hasfile('avatar')) {
           $file = $request->file('avatar');
-          $filename = $file->getClientOriginalName();
+          //$filename = $file->getClientOriginalName();
           // $file->storeAs('avatars/', $user_auth->id, $filename, options: 's3');
+          \Storage::disk('s3')->putFile('avatars', new File($file)); 
           $user->update([
             'avatar' => $filename
           ]);
         }
-        */
+        
       });
       return \Response::json(['create' => true], 200);
     }
@@ -166,7 +184,7 @@ class ProfileController extends Controller
             ->select('users.id_tipo_cuenta', 'profile.id as id_profile')
             ->where('profile.username', $username)
             ->first();
-
+        
       if ($user !== null && $user->id_tipo_cuenta === 2) {
           
           //query

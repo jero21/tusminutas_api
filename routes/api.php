@@ -62,4 +62,4 @@ Route::get('show_minuta_cliente/{uuid}', [MinutaController::class, 'showCliente'
 Route::get('propiedad', [PropertyController::class, 'indexCliente']);
 
 // LINK PERFIL USUARIO
-Route::get('show_profile/{username}', [PropertyController::class, 'showPerfil']);
+Route::get('show_profile/{username}', [ProfileController::class, 'showPerfil']);
