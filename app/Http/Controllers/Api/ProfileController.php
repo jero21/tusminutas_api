@@ -51,7 +51,7 @@ class ProfileController extends Controller
       }
 
       $usern = Profile::where('username', $request->username)
-                  ->where('id_profile', '<>', $request->id_profile)
+                  ->where('id', '<>', $request->id_profile)
                   ->first();
       if ($usern) {
         return \Response::json(['create' => false, 'message' => 'username already exist'], 500);
@@ -79,7 +79,6 @@ class ProfileController extends Controller
         // User
         $user = User::find($user_auth->id);
         $user->nombre = $request->nombre;
-        $user->email = $request->email;
         if ($profile->id) {
           $user->id_profile = $profile->id;
         }
@@ -129,7 +128,8 @@ class ProfileController extends Controller
         }
         
       });
-      return \Response::json(['create' => true], 200);
+      $profile = Profile::orderBy('id', 'desc')->first();
+      return \Response::json(['create' => true, 'profile' => $profile], 200);
     }
 
     /**
