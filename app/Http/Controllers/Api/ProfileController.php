@@ -143,7 +143,7 @@ class ProfileController extends Controller
     }
 
     // Publicar perfil sólo si el usuario tiene una cuenta premium
-    public function publishProfile ($id_profile) {
+    public function publishProfile (Request $request) {
       try {
         $user = JWTAuth::parseToken()->authenticate();
         if ($user->id_tipo_cuenta === 1) {
@@ -164,7 +164,7 @@ class ProfileController extends Controller
       }
     }
 
-    public function unpublishProfile ($id_profile) {
+    public function unpublishProfile (Request $request) {
       try {
 
         $profile = Profile::find($request->id_profile);
