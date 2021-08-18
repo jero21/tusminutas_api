@@ -50,8 +50,10 @@ class ProfileController extends Controller
         return \Response::json(['create' => true, 'avatar' => $base_url.$avatar_url], 200);
       }
 
-      $usern = Profile::where('username', $request->username)->first();
-      if (!$usern) {
+      $usern = Profile::where('username', $request->username)
+                  ->where('id_profile', '<>', $request->id_profile)
+                  ->first();
+      if ($usern) {
         return \Response::json(['create' => false, 'message' => 'username already exist'], 500);
       }
         
