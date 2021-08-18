@@ -14,8 +14,8 @@ class AddAttributesToProfileTable extends Migration
     public function up()
     {
         Schema::table('profile', function (Blueprint $table) {
-            //$table->string('email_profesional')->nullable();
-            //$table->string('username')->nullable();
+            $table->string('email_profesional')->nullable();
+            $table->string('username')->nullable();
 
             $table->integer('id_profile_status')->nullable()->unsigned();
             $table->foreign('id_profile_status')->references('id')->on('profile_status');
